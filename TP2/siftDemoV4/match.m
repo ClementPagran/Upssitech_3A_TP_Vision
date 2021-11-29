@@ -8,7 +8,7 @@
 %
 % Example: match('scene.pgm','book.pgm');
 
-function num = match(image1, image2)
+function num = match(image1, image2, nomFig)
 
 % Find SIFT keypoints for each image
 [im1, des1, loc1] = sift(image1);
@@ -39,9 +39,10 @@ end
 
 % Create a new image showing the two images side by side.
 im3 = appendimages(im1,im2);
+imwrite(im3,'fig.png')
 
 % Show a figure with lines joining the accepted matches.
-figure('Position', [100 100 size(im3,2) size(im3,1)]);
+f=figure('Position', [100 100 size(im3,2) size(im3,1)]);
 colormap('gray');
 imagesc(im3);
 hold on;
@@ -53,6 +54,7 @@ for i = 1: size(des1,1)
   end
 end
 hold off;
+saveas(f,nomFig,'jpg')
 num = sum(match > 0);
 fprintf('Found %d matches.\n', num);
 
