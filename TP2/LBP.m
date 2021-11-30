@@ -6,15 +6,15 @@ count=0;
 
 for i=1:size_(1)
     point=interestPoints(i,:);
-    x=point(1);
-    y=point(2);
+    x=point(2);
+    y=point(1);
  
     descriptor_n=[];
     count=0;
     %la taille de la fenetre est 5*5 pour pouvoir avoir 24 pixels voisin au
     %pixel central
-    for a=-4:1:4
-        for b=-4:1:4         
+    for a=-2:1:2
+        for b=-2:1:2         
             if(a~=0 && b~=0)
                diff=image(x,y)-image(x+a,y+b);
                count=count+1;

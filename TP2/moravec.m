@@ -25,12 +25,11 @@ function [a, R] = moravec(image, w)
     % calculate E of Moravec corner detector
     len=size(uv,1);
     for i = 1:len
-	shiftI = circshift(I, uv(i,:));
+	shiftI = circshift(I, uv(i,:));%decale I de u vers la droite et v vers le bas
 	diffI = shiftI - I;
 	ssdI = abs(diffI) ; % sum of squared differences
-	E(i,:,:) = conv2(ssdI, weight, 'same'); % summation of weighted ssd
+  	E(i,:,:) = conv2(ssdI, weight, 'same'); % summation of weighted ssd
     end
-
     minE = reshape(min(E), row, col);
 
     % local maxima
