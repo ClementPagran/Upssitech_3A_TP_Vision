@@ -6,7 +6,7 @@ if ymo>0
     a=atan(xmo/ymo);
 else
     if ymo<0
-        a=-atan(xmo/ymo)
+        a=-atan(xmo/ymo);
     else
         if xmo>0
             a=pi/2;
