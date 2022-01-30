@@ -1,35 +1,26 @@
-function [index,se]=threshold(F,V)
-T = [F,V];
-Len = 1000;
-
-sortedT = sortrows(T,1);
-sorted_flags = sortedT(:,2);
-sorted_feature = sortedT(:,1);
-
-
-least_error = 9999999999999999999999999999999999999999;
-Best_index = 1;
-for pos_seuil = 1:Len
-    
-    sorted_flags_inv=sorted_flags==0;
-    error1 = sum(sorted_flags_inv(1:pos_seuil));
-    error2 = sum(sorted_flags(pos_seuil:Len));
-    E1 = error1+error2;
-    
-    error1 = sum(sorted_flags(1:pos_seuil));
-    error2 = sum(sorted_flags_inv(pos_seuil:Len));
-    E2 = error1+error2;
-
-    E = min(E1,E2);
-    
-    if(least_error>=E)
-        least_error = E;
-        Best_index = pos_seuil;
+function [s,pos]=threshold(F,V)
+nb_indiv = size(F);
+nb_indiv = nb_indiv(1);
+F = F';
+V = V';
+Tab = [F;V]; %2 lignes(feature, etiquette), 1000 colonnes (individus)
+Tab = sortrows(Tab')';
+err = inf;
+t = 0;
+tm = nb_indiv-sum(Tab(2,:));%nombre total non visages
+tp = nb_indiv-tm;%nombre total de visages
+for thres = 1:nb_indiv-1
+    sp = sum(Tab(2:2,1:thres));%nombre visages jusqu'au seuil
+    sm = thres - sp; % nombre de non visages jusqu'au seuil
+    err1 = sp + tm - sm;
+    err2 = sm+tp-sp;
+    err_t = min([err1,err2]);
+    if(err_t<err)
+        err = err_t;
+        t = thres;
     end
-    
 end
-
-se = sorted_feature(Best_index);
-index = Best_index;
+pos = t;
+s = Tab(1,pos);
 end
 

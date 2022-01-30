@@ -79,6 +79,6 @@ end
 
 % dsp2=['Bloc: ',num2str(i),'x',num2str(j),' larg x long (ixj)'];
 % disp(dsp2)
-
+% 
 % dsp1 = ['X: ',num2str(x),'| Y: ',num2str(y)];
 % disp(dsp1)
